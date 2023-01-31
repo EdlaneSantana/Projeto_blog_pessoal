@@ -27,7 +27,6 @@ public class Postagem {
     private LocalDateTime data;
 
 
-
     public Long getId() {
         return id;
     }
