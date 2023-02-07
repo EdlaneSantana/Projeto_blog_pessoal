@@ -31,6 +31,19 @@ public class Postagem {
     @JsonIgnoreProperties("postagem")  //trazer a resposta e ignorar os outros temas, evitando o loop.
     private Tema tema;
 
+    @ManyToOne
+    @JsonIgnoreProperties("postagem")
+    private Usuario usuario;
+
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
     public Long getId() {
         return id;
     }
