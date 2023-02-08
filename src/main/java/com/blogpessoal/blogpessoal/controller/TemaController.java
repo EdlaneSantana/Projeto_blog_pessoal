@@ -1,6 +1,5 @@
 package com.blogpessoal.blogpessoal.controller;
 
-import com.blogpessoal.blogpessoal.model.Postagem;
 import com.blogpessoal.blogpessoal.model.Tema;
 import com.blogpessoal.blogpessoal.repository.TemaRepository;
 import jakarta.validation.Valid;
