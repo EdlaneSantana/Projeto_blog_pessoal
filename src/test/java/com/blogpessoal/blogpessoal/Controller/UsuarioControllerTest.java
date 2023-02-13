@@ -78,6 +78,7 @@ public class UsuarioControllerTest {
         assertEquals(HttpStatus.OK, corpoResposta.getStatusCode());
         assertEquals(corpoRequisicao.getBody().getNome(), corpoResposta.getBody().getNome());
         assertEquals(corpoRequisicao.getBody().getUsuario(), corpoResposta.getBody().getUsuario());
+
     }
 
     @Test
@@ -85,6 +86,7 @@ public class UsuarioControllerTest {
     public void deveMostrarTodosUsuarios() {
         usuarioService.cadastrarUsuario(new Usuario(0L, "Sabrina Sato", "sabrina_sato@email.com.br", "13465278", "https://i.imgur.com/JR7kUFU.jpg"));
         usuarioService.cadastrarUsuario(new Usuario(0L, "Ricardo Paes", "ricardo_paes@email.com.br", "13465278", "https://i.imgur.com/JR7kUFU.jpg"));
+
         ResponseEntity<String> resposta = testRestTemplate
                 .withBasicAuth("root@root.com", "rootroot")
                 .exchange("/usuarios/all", HttpMethod.GET, null, String.class);
@@ -92,18 +94,17 @@ public class UsuarioControllerTest {
         assertEquals(HttpStatus.OK, resposta.getStatusCode());
     }
 
+
     @Test
     @DisplayName("Listar Usuário por Id")
     public void deveMostrarUsuarioPorId(){
-        usuarioService.cadastrarUsuario(new Usuario(0L, "Juliana Paes", "juliana_paes@email.com.br", "13465278", "https://i.imgur.com/JR7kUFU.jpg"));
+        Optional<Usuario> cadastro = usuarioService.cadastrarUsuario(new Usuario(1L, "Juliana Amora", "juliana_amora@email.com.br", "13465278", "https://i.imgur.com/JR7kUFU.jpg"));
 
-        Optional<Usuario> usuario = usuarioRepository.findById(1L);
+      ResponseEntity<Usuario> resposta = testRestTemplate
+              .withBasicAuth("root@root.com", "rootroot")
+              .exchange("/usuarios/{id}", HttpMethod.GET, null, Usuario.class, cadastro.get().getId());
 
-        ResponseEntity<String> resposta = testRestTemplate
-                .withBasicAuth("root@root.com", "rootroot")
-                .exchange("/usuarios/{id}", HttpMethod.GET, null, String.class);
-
-        assertTrue(usuario.get().getUsuario().equals(1L));
+       assertEquals(cadastro.get().getId(), resposta.getBody().getId());
     }
 
     @Test
