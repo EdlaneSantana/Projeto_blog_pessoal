@@ -4,6 +4,7 @@ import com.blogpessoal.blogpessoal.model.Usuario;
 import com.blogpessoal.blogpessoal.repository.UsuarioRepository;
 import com.blogpessoal.blogpessoal.service.UsuarioService;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.*;
@@ -16,7 +17,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -89,5 +90,31 @@ public class UsuarioControllerTest {
                 .exchange("/usuarios/all", HttpMethod.GET, null, String.class);
 
         assertEquals(HttpStatus.OK, resposta.getStatusCode());
+    }
+
+    @Test
+    @DisplayName("Listar Usuário por Id")
+    public void deveMostrarUsuarioPorId(){
+        usuarioService.cadastrarUsuario(new Usuario(0L, "Juliana Paes", "juliana_paes@email.com.br", "13465278", "https://i.imgur.com/JR7kUFU.jpg"));
+
+        Optional<Usuario> usuario = usuarioRepository.findById(1L);
+
+        ResponseEntity<String> resposta = testRestTemplate
+                .withBasicAuth("root@root.com", "rootroot")
+                .exchange("/usuarios/{id}", HttpMethod.GET, null, String.class);
+
+        assertTrue(usuario.get().getUsuario().equals(1L));
+    }
+
+    @Test
+    @DisplayName("Logar")
+    public void deveLogar(){
+        Optional<Usuario> usuarioCadastrado = usuarioService.cadastrarUsuario(new Usuario(0L, "Juliana Paes", "juliana_paes@email.com.br", "13465278", "https://i.imgur.com/JR7kUFU.jpg"));
+
+        HttpEntity<Usuario> corpoRequisicao = new HttpEntity<Usuario>(new Usuario("juliana_paes@email.com.br", "13465278" ));
+
+        ResponseEntity<Usuario> corpoResposta = testRestTemplate
+                .exchange("/usuarios/logar", HttpMethod.POST, corpoRequisicao, Usuario.class);
+        assertEquals(HttpStatus.UNAUTHORIZED, corpoResposta.getStatusCode());
     }
 }

@@ -43,6 +43,9 @@ public class Usuario {
 
     public Usuario(){};
 
+    public Usuario(String s, String s1) {
+    }
+
     public List<Postagem> getPostagem() {
         return postagem;
     }
