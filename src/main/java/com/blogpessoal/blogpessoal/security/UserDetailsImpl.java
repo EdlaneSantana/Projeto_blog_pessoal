@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.List;
 
 import com.blogpessoal.blogpessoal.model.Usuario;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 

@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import com.blogpessoal.blogpessoal.model.Usuario;
 import com.blogpessoal.blogpessoal.repository.UsuarioRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UserDetails;

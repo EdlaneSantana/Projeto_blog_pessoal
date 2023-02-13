@@ -5,6 +5,7 @@ import com.blogpessoal.blogpessoal.model.Usuario;
 import com.blogpessoal.blogpessoal.model.UsuarioLogin;
 import com.blogpessoal.blogpessoal.repository.UsuarioRepository;
 import com.blogpessoal.blogpessoal.service.UsuarioService;
+
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -52,8 +53,6 @@ public class UsuarioController {
                 .map(resposta -> ResponseEntity.ok(resposta))
                 .orElse(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
     }
-
-
     @PutMapping("/atualizar")
     public ResponseEntity<Usuario> putUsuario(@Valid @RequestBody Usuario usuario) {
         return usuarioService.atualizarUsuario(usuario)

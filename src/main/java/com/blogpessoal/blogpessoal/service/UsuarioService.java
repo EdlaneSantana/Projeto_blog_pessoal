@@ -3,6 +3,7 @@ package com.blogpessoal.blogpessoal.service;
 import com.blogpessoal.blogpessoal.model.Usuario;
 import com.blogpessoal.blogpessoal.model.UsuarioLogin;
 import com.blogpessoal.blogpessoal.repository.UsuarioRepository;
+
 import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,6 +26,7 @@ public class UsuarioService {
             return Optional.empty();
 
         usuario.setSenha(criptografarSenha(usuario.getSenha()));
+
         return Optional.of(usuarioRepository.save(usuario));
     }
 
