@@ -48,7 +48,6 @@ public class UsuarioControllerTest {
         assertEquals(HttpStatus.CREATED, corpoResposta.getStatusCode());
         assertEquals(corpoRequisicao.getBody().getNome(), corpoResposta.getBody().getNome());
         assertEquals(corpoRequisicao.getBody().getUsuario(), corpoResposta.getBody().getUsuario());
-
     }
 
     @Test
