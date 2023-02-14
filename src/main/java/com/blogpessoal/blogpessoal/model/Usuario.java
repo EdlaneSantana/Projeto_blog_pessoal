@@ -43,7 +43,9 @@ public class Usuario {
 
     public Usuario(){};
 
-    public Usuario(String s, String s1) {
+    public Usuario( String usuario, String senha) {
+        this.usuario = usuario;
+        this.senha = senha;
     }
 
     public List<Postagem> getPostagem() {
